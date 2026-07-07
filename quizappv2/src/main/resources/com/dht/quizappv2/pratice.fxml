@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Container" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dht.quizappv2.PraticeController">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="Luyện Tập" />
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container" stylesheets="@styles.css">
+         <children>
+            <TextField styleClass="Input" />
+            <ComboBox fx:id="cbSearchCates" prefWidth="150.0" styleClass="Input" />
+            <ComboBox fx:id="cbSearchLevels" prefWidth="150.0" styleClass="Input" stylesheets="@styles.css" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" styleClass="Input" stylesheets="@styles.css" text="Button" />
+         </children>
+      </HBox>
+      <Label text="Nội DUng Câu Hỏi" />
+      <VBox prefHeight="99.0" prefWidth="580.0" />
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="Container">
+         <children>
+            <Button mnemonicParsing="false" styleClass="Button" text="&lt;&lt;" />
+            <Button mnemonicParsing="false" styleClass="Button" text="Kiểm Tra" />
+            <Button mnemonicParsing="false" styleClass="Button" text="&gt;&gt;" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

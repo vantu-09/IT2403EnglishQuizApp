@@ -4,7 +4,9 @@
  */
 package com.dht.utils;
 
+import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  *
@@ -16,8 +18,7 @@ public class MyAlertSingleton {
     
     private MyAlertSingleton() {
         this.alert = new Alert(Alert.AlertType.INFORMATION);
-        this.alert.setTitle("QuizApp");
-        this.alert.setHeaderText("QuizApp");
+        this.alert.setTitle("quizapp");
     }
     
     public static MyAlertSingleton getInstance() {
@@ -27,8 +28,18 @@ public class MyAlertSingleton {
         return instance;
     }
     
-    public void showMsg(String content) {
+    public void showAlert(String content) {
         this.alert.setContentText(content);
         this.alert.show();
+    }
+    
+    public Optional<ButtonType> showAlert(String content, Alert.AlertType type) {
+        this.alert.setContentText(content);
+        this.alert.setAlertType(type);
+        return this.alert.showAndWait();
+    }
+
+    public void showStage(String pratice) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

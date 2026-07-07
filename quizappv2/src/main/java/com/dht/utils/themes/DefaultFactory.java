@@ -10,7 +10,7 @@ import com.dht.quizappv2.App;
  *
  * @author admin
  */
-public class DefaultFactory extends ThemeAbstractFactory {
+public class DefaultFactory extends ThemesAbstractFactory {
 
     @Override
     public String getStyleSheet() {

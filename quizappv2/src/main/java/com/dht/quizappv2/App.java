@@ -26,10 +26,9 @@ public class App extends Application {
     @Override
     public void stop() throws Exception {
         super.stop(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        
         MyConnSingleton.getInstance().close();
     }
-    
-    
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));

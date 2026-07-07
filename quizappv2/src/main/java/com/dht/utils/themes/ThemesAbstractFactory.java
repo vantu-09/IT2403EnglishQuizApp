@@ -4,17 +4,10 @@
  */
 package com.dht.utils.themes;
 
-import com.dht.quizappv2.App;
-
 /**
  *
  * @author admin
  */
-public class DarkFactory extends ThemesAbstractFactory {
-
-    @Override
-    public String getStyleSheet() {
-        return App.class.getResource("dark.css").toExternalForm();
-    }
-    
+public abstract class ThemesAbstractFactory {
+    public abstract String getStyleSheet();
 }
