@@ -25,11 +25,11 @@ public class PrimaryController implements Initializable {
     }
     
     public void practice(ActionEvent e) {
-        MyStageSingleton.getInstance().showStage("pratice");
+        MyStageSingleton.getInstance().showStage("practice");
     }
     
     public void exam(ActionEvent e) {
-        MyAlertSingleton.getInstance().showAlert("Comming soon...");
+        MyStageSingleton.getInstance().showStage("exam");
     }
 
     public void changeTheme(ActionEvent e) {

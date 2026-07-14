@@ -4,10 +4,10 @@
  */
 package com.dht.services.questions;
 
-import com.dht.pojo.Category;
-import com.dht.pojo.Level;
+import com.dht.pojo.Choice;
 import com.dht.pojo.Question;
 import com.dht.pojo.QuestionQueryBuilder;
+import com.dht.services.QueryServiceBase;
 import com.dht.utils.MyConnSingleton;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,54 +19,48 @@ import java.util.List;
  *
  * @author admin
  */
-public class QuestionServices {
-
-    /**
-     * @param sql the sql to set
-     */
-    public void setSql(QuestionQueryBuilder query) {
-        this.query = query;
-    }
+public class QuestionServices extends QueryServiceBase<Question> implements QuestionServicesBase {
     private QuestionQueryBuilder query;
+
+    public QuestionServices() {
+    }
 
     public QuestionServices(QuestionQueryBuilder query) {
         this.query = query;
     }
-
-    public QuestionServices() {
-    }
     
-    
-    
-    
-    
-    public List<Question> getQuestions() throws SQLException {
-//        String sql = "SELECT * FROM question WHERE 1=1";
-//        
-//        
-//        List<Object> params = new ArrayList<>();
-//        if (kw != null && !kw.isEmpty()) {
-//            sql += " AND content like concat('%', ?, '%')";
-//            params.add(kw);
-//        }
-//        if (c != null) {
-//            sql += " AND category_id = ?";
-//            params.add(c.getId());
-//        }
-//        if (lvl != null) {
-//            sql += " AND level_id = ?";
-//            params.add(lvl.getId());
-//        }
-//        
+    @Override
+    public List<Question> list() throws SQLException {
         PreparedStatement stm = this.query.build();
-//        for (int i = 0; i < params.size(); i++)
-//            stm.setObject(i + 1, params.get(i));
-        
         ResultSet rs = stm.executeQuery();
         
         List<Question> questions = new ArrayList<>();
         while (rs.next()) {
-            questions.add(new Question.QuestionBuilder().setContent(rs.getString("content")).setId(rs.getInt("id")).build());
+            questions.add(new Question.QuestionBuilder().setContent(rs.getString("content"))
+                                      .setId(rs.getInt("id")).build());
+        }
+        
+        return questions;
+    }
+
+    /**
+     * @param sql the sql to set
+     */
+    public void setQuery(QuestionQueryBuilder query) {
+        this.query = query;
+    }
+
+    @Override
+    public PreparedStatement getStm() throws SQLException {
+        return this.query.build();
+    }
+
+    @Override
+    public List<Question> getResults(ResultSet rs) throws SQLException {
+        List<Question> questions = new ArrayList<>();
+        while (rs.next()) {
+            questions.add(new Question.QuestionBuilder().setContent(rs.getString("content"))
+                                      .setId(rs.getInt("id")).build());
         }
         
         return questions;

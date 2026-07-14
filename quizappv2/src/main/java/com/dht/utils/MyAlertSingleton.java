@@ -38,8 +38,4 @@ public class MyAlertSingleton {
         this.alert.setAlertType(type);
         return this.alert.showAndWait();
     }
-
-    public void showStage(String pratice) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }

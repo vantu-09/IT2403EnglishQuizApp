@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  *
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
 public class QuestionQueryBuilder {
     private StringBuilder query;
     private StringBuilder where;
-    private String orderBy = " id DESC";
+    private String orderBy = "id DESC";
     private List<Object> params;
 
     public QuestionQueryBuilder() {
@@ -27,55 +26,59 @@ public class QuestionQueryBuilder {
         this.params = new ArrayList<>();
     }
     
-    public QuestionQueryBuilder widthKeywords(String kv){
-        if(kv != null  && !kv.isEmpty()){
+    public QuestionQueryBuilder widthKeywords(String kw) {
+        if (kw != null && !kw.isEmpty()) {
             this.where.append(" AND content like concat('%', ?, '%')");
-            this.params.add(kv);
+            this.params.add(kw);
         }
+        
         return this;
     }
-    
     
     public QuestionQueryBuilder widthCategory(Category c) {
         if (c != null) {
             this.where.append(" AND category_id = ?");
             this.params.add(c.getId());
         }
+        
         return this;
     }
     
-    public QuestionQueryBuilder widthLevel(Level lvl){
+    public QuestionQueryBuilder widthLevel(Level lvl) {
         if (lvl != null) {
             this.where.append(" AND level_id = ?");
             this.params.add(lvl.getId());
         }
+        
         return this;
     }
     
-    public QuestionQueryBuilder setOrderBy(String orderBy){
+    public QuestionQueryBuilder setOrderBy(String orderBy) {
         this.orderBy = orderBy;
         return this;
     }
     
-    public QuestionQueryBuilder setLimit(int limit){
+    public QuestionQueryBuilder setLimit(int limit) {
+        if (!this.query.toString().toLowerCase().contains("limit")) {
+            this.query.append(" LIMIT ?");
+            this.params.add(limit);
+        }
         
-        this.query.append(" LIMIT ?");
-        this.params.add (limit);
-
+        return this;
     }
     
-    public PreparedStatement build() throws SQLException{
-        String sql;
-        sql = String.format(this.query.toString(), this.where.toString(),this.orderBy);
+    public QuestionQueryBuilder setLimit(String limit) {
+        this.setLimit(Integer.parseInt(limit));
+        
+        return this;
+    }
+    
+    public PreparedStatement build() throws SQLException {
+        String sql = String.format(this.query.toString(), this.where.toString(), this.orderBy);
         PreparedStatement stm = MyConnSingleton.getInstance().connect().prepareCall(sql);
         for (int i = 0; i < params.size(); i++)
-            try {
-                stm.setObject(i + 1, this.params.get(i));
-            } catch (SQLException ex) {
-                Logger.getLogger(QuestionQueryBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
+            stm.setObject(i + 1, this.params.get(i));
         
         return stm;
     }
-    
 }
